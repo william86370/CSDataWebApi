@@ -1,47 +1,36 @@
 # CSDataWebApi Development Guide () {
 
 *Developed For CS-452 Database System*
+## Purpose
+
+Allow for easy access and usage for a backend Server Written in NodeJS
 
 
-## Usage
+## How dose the Api Work?
 
-<a name="API-Usage"></a><a name="1.0"></a>
- - [1.0](#API-Usage) **Usage**: How to Access the Web Based API
+1. Generate the following AUTH api for you at `http://localhost:3000`
 
-   - `/api/v1/Auth`
 
-   ```javascript
-var https = require('follow-redirects').https;
-var fs = require('fs');
+|Method| URL                        | data(if needed)                        | server action(if request is good)                 |
+| ---- |----------------------------| ---------------------------------------| --------------------------------------------------|
+| GET | /api/v1/Auth                |                                        |Lists The Api Structure and usage Calls            |
+| GET | /api/v1/Auth/CreateAccount  | {name: ..., email: ..., password: ...} |Checks inputs and creates new Account              |
+| GET | /api/v1/Auth/Login          | {email: ..., password: ...}            |Checks username/passwords and Generates APi Token  |
+| GET | /api/v1/Auth/TestToken      | {token(the generated token)}           |verifies token and displays test data              |
+| GET | /api/v1/Data                | {token(the generated token)}           |verifies token and displays Users Data             |
 
-var options = {
-  'method': 'GET',
-  'hostname': '10.1.120.77',
-  'port': 3000,
-  'path': '/api/v1/Auth',
-  'headers': {
-  },
-  'maxRedirects': 20
-};
+(more details in the code)
 
-var req = https.request(options, function (res) {
-  var chunks = [];
 
-  res.on("data", function (chunk) {
-    chunks.push(chunk);
-  });
+## TODOS
 
-  res.on("end", function (chunk) {
-    var body = Buffer.concat(chunks);
-    console.log(body.toString());
-  });
+   - [ ] better http status code
+   - [ ] better config params
+   - [ ] docs
+   - [ ] new feature
 
-  res.on("error", function (error) {
-    console.error(error);
-  });
-});
+## license
 
-req.end();
-   ```
+     MIT
 
 }
