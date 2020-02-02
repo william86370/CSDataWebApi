@@ -26,6 +26,8 @@ exports.Auth = (AccountData, password) => {
     }
 };
 
+
+
 //This function will create the oath2 structure for Account
 function GenerateNewOath2Token(UDID) {
     let NewOath2 = {token: "", salt: "", secret: "", udid: ""};

@@ -42,7 +42,7 @@ app.get('/api/v1/Auth/CreateAccount', function (req, res) {
     Users.CreateUser(req.query.username, req.query.password, req.query.email, res);
 });
 
-app.get('/Auth/Login', function (req, res) {
+app.get('/api/v1/Auth/Login', function (req, res) {
     let AccountData = Users.GetAccountDataByUserName(req.query.username);
     res.send(Auth.Auth(AccountData, req.query.password));
 });
@@ -56,7 +56,7 @@ app.get('/api/data/AccountData', function (req, res) {
         res.send({status: false, reason: 'Incorrect Token'})
     }
 });
-app.get('/api', function (req, res) {
+app.get('/api/v1/Auth/TestToken', function (req, res) {
     //Check for API Key
     if (Users.ValidateToken(req.query.token)) {
         //exists
