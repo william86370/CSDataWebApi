@@ -42,10 +42,7 @@ To use the API all you have to do is make an HTTP Call to the web address with t
 
 Example 1.) Calling in Powershell
 ```powershell
-body = ""
-
-$response = Invoke-RestMethod 'localhost:3000/api/v1/Auth' -Method 'GET' -Headers $headers -Body $body
-$response | ConvertTo-Json
+Invoke-RestMethod -Uri http://localhost:3000/api/v1/Auth
 ```
 Example 2.) Calling Basic Api Using HTTP:
 ```http
