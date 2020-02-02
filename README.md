@@ -1,5 +1,7 @@
 # CSDataWebApi Database System 
 *Developed For My CS-452 Class Assigment for WebApi Calls*
+
+![Node.js CI](https://github.com/william86370/CSDataWebApi/workflows/Node.js%20CI/badge.svg)
 ## Purpose
 Allow for easy access and usage for a backend Server Written in NodeJS
 ## Installation
