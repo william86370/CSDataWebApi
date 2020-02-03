@@ -1,6 +1,28 @@
 const Auth = require('../Auth/AuthController.js');
+var fs = require('fs');
+
 var AllData = [];
 
+//Function for saving data to file
+exports.SaveData = () => {
+    var json = JSON.stringify(AllData);
+
+    function callback() {
+    }
+
+    fs.writeFile('AllData.json', json, 'utf8', callback);
+};
+//For reading a file
+exports.ReadData = () => {
+    fs.readFile('AllData.json', 'utf8', function readFileCallback(err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            AllData = JSON.parse(data); //now it an object
+        }
+    });
+
+};
 //This function will only disclose the AccountData information of a user
 exports.GetAccountDataByUserName = (userName) => {
     for (let i = 0; i < AllData.length; i++) {
@@ -24,16 +46,16 @@ exports.GetUserByID = (ID) => {
     return {};
 };
 //This call will return the structure so we can parse the information inside
-exports.GetUserByToken = (ApiToken) => {
+function GetUserByToken(USER_TOKEN) {
     for (let i = 0; i < AllData.length; i++) {
         //loop until found
-        if (AllData[i].AccountData.oauth2.token === ApiToken) {
+        if (AllData[i].AccountData.oauth2.token === USER_TOKEN) {
             //data match
             return AllData[i];
         }
     }
     return {};
-};
+}
 //This call Will be used to validate the API token to allow the call to continue
 exports.ValidateToken = (ApiToken) => {
     for (let i = 0; i < AllData.length; i++) {
@@ -86,3 +108,61 @@ function CheckUserExists(userName, email) {
     }
     return false;
 }
+
+//For creating new user accounts
+exports.NewUser = (req, res) => {
+    //run checks on user input
+    if (CheckUserExists(req.body.username, req.body.email)) {
+        return res.status(404).send({result: false, data: 'The Username/Email Already Exists'});
+    }
+    //Create the new user object
+    AllData.push({
+        uuid: Auth.GenerateNewUserID(),
+        AccountData: {
+            username: req.body.username,
+            password: Auth.HashPassword(req.body.password),
+            email: req.body.email,
+            accounttype: "",
+            oauth2: {}
+        },
+        ProfileData: {}
+    });
+    return res.status(201).send({result: true, data: AllData[AllData.length - 1].AccountData})
+};
+
+//This function updates the users profile
+exports.UpdateUserProfile = (req, res) => {
+    //get the profile from the user API Key assuming the token key is valid
+    let profile = GetUserByToken(req.body.token).ProfileData;
+    //check values and update The user structure
+    if (req.body.firstname) {
+        profile.firstname = req.body.firstname;
+    }
+    if (req.body.lastname) {
+        profile.lastname = req.body.lastname;
+    }
+    if (req.body.pfpurl) {
+        profile.pfpurl = req.body.pfpurl;
+    }
+    if (req.body.bio) {
+        profile.bio = req.body.bio;
+    }
+    if (req.body.usid) {
+        profile.usid = req.body.usid;
+    }
+    if (req.body.status) {
+        profile.status = req.body.status;
+    }
+    if (req.body.employment) {
+        profile.employment = req.body.employment;
+    }
+    //return the object updated
+    return res.status(200).send(profile);
+};
+
+exports.ViewUserProfile = (req, res) => {
+    //get the profile from the user API Key assuming the token key is valid
+    let profile = GetUserByToken(req.body.token).ProfileData;
+//return the object updated
+    return res.status(200).send(profile);
+};
