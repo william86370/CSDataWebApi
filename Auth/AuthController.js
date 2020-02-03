@@ -1,5 +1,6 @@
 //Auth controller will control the Auth of a user and making sure the data is stored correctly
 const crypto = require('crypto');
+const Users = require('../Data/ClientData.js');
 
 //This functions hashs the users password for storing
 exports.HashPassword = (password) => {
@@ -25,7 +26,22 @@ exports.Auth = (AccountData, password) => {
 
     }
 };
-
+exports.Login = (req, res) => {
+    //Get user Profile
+    let UserProfile = Users.GetAccountDataByUserName(req.body.username);
+    let passwordFields = UserProfile.password.split('$');
+    let salt = passwordFields[0];
+    let hash = crypto.createHmac('sha512', salt).update(req.body.password).digest("base64");
+    if (hash === passwordFields[1]) {
+        //The user Has Passed Password Check
+        UserProfile.oauth2 = GenerateNewOath2Token(crypto.randomBytes(8).toString('base64'));
+        Users.SaveallData();
+        return res.status(200).send(UserProfile.oauth2);
+    } else {
+        //The user Entered the incorrect Password
+        return res.status(200).send({result:false,reason:"Incorrect Password Entered"});
+    }
+};
 
 
 //This function will create the oath2 structure for Account

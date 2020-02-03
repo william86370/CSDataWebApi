@@ -1,6 +1,8 @@
 const Users = require('../Data/ClientData.js');
+const bodyParser = require('body-parser');
 
 //This function Helps parse the data inside the Body for the username and password
+
 exports.hasAuthValidFields = (req, res, next) => {
     let errors = [];
 
@@ -30,7 +32,7 @@ exports.hasAuthToken = (req, res, next) => {
         //found token
         return next();
     } else {
-        return res.status(400).send({error: 'No Token field', value: req.body.token});
+        return res.status(401).send({error: 'No Token field', value: req.body.token});
     }
 };
 //for checking if token has valid user

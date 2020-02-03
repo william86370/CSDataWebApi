@@ -1,15 +1,21 @@
 const Auth = require('../Auth/AuthController.js');
+
 var fs = require('fs');
 
 var AllData = [];
 
 //Function for saving data to file
-exports.SaveData = () => {
-    var json = JSON.stringify(AllData);
-
+function SaveData()  {
+    let json = JSON.stringify(AllData);
     function callback() {
     }
-
+    fs.writeFile('AllData.json', json, 'utf8', callback);
+}
+//for calling save remotely
+exports.SaveallData=() => {
+    let json = JSON.stringify(AllData);
+    function callback() {
+    }
     fs.writeFile('AllData.json', json, 'utf8', callback);
 };
 //For reading a file
@@ -91,6 +97,7 @@ exports.CreateUser = (userName, password, email, res) => {
         },
         ProfileData: {}
     });
+    SaveData();
     return res.status(201).send({result: true, data: AllData[AllData.length - 1].AccountData})
 };
 
@@ -127,6 +134,7 @@ exports.NewUser = (req, res) => {
         },
         ProfileData: {}
     });
+    SaveData();
     return res.status(201).send({result: true, data: AllData[AllData.length - 1].AccountData})
 };
 
@@ -157,6 +165,7 @@ exports.UpdateUserProfile = (req, res) => {
         profile.employment = req.body.employment;
     }
     //return the object updated
+    SaveData();
     return res.status(200).send(profile);
 };
 
