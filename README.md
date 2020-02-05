@@ -32,8 +32,8 @@ $ npm install express --save
 |Method| URL                        | data(if needed)                        | server action(The Request is Successful)          |
 | ---- |----------------------------| ---------------------------------------| --------------------------------------------------|
 | GET | /api/v1/Auth                |                                        |Lists The Api Structure and usage Calls            |
-| GET | /api/v1/Auth/CreateAccount  | {name: ..., email: ..., password: ...} |Checks inputs and creates new Account              |
-| GET | /api/v1/Auth/Login          | {email: ..., password: ...}            |Checks username/passwords and Generates APi Token  |
+| POST | /api/v1/Auth/CreateAccount  | {name: ..., email: ..., password: ...} |Checks inputs and creates new Account              |
+| POST | /api/v1/Auth/Login          | {email: ..., password: ...}            |Checks username/passwords and Generates APi Token  |
 | GET | /api/v1/Auth/TestToken      | {token(the generated Login token)}           |verifies token and displays test data              |
 | GET | /api/v1/Data                | {token(the generated Login token)}           |verifies token and displays Users Data             |
 

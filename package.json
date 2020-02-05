@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "keywords": [],
-  "author": "",
+  "author": "William Wright",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
