@@ -6,19 +6,26 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 
-app.listen(port, () => {console.log(`WebAPI app listening on port ${port}!`); Users.ReadData();});
+app.listen(port, () => {
+    console.log(`WebAPI app listening on port ${port}!`);
+    Users.ReadData();
+});
 app.use(bodyParser.json());
 
 
 //User entered create new account
-app.post('/api/v1/Auth/CreateAccount', [Middleware.hasAuthValidFields,Users.NewUser]);
+app.post('/api/v1/Auth/CreateAccount', [Middleware.hasAuthValidFields, Users.NewUser]);
 //This function will login the User and generate new oath2 token
-app.get('/api/v1/Auth/Login',[Middleware.hasAuthValidFields,Auth.Login]);
+app.get('/api/v1/Auth/Login', [Middleware.hasAuthValidFields, Auth.Login]);
+//This function will login the User and generate new oath2 token
+app.post('/api/v1/Auth/Login', [Middleware.hasAuthValidFields, Auth.Login]);
 //This call will return the User structure containing all account info
 app.get('/api/v1/data/AccountData', [Middleware.hasAuthToken, Middleware.hasAuthValidToken,]);
+//This call will return the User structure containing all account info
+app.post('/api/v1/data/AccountData', [Middleware.hasAuthToken, Middleware.hasAuthValidToken,]);
 //This function Will receive the call to check token
 app.get('/api/v1/Auth/TestToken', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
-res.status(200).send({result:true,response:"Token Valid"});
+    res.status(200).send({result: true, response: "Token Valid"});
 }]);
 
 //This function is for updating the users profile with an api key

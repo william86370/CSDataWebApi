@@ -32,6 +32,11 @@ exports.hasAuthToken = (req, res, next) => {
         //found token
         return next();
     } else {
+        if ((req.query && req.query.token)) {
+            //found token
+            req.query.token = req.query.token.replace(/ /g, "+");
+            return next();
+        }
         return res.status(401).send({error: 'No Token field', value: req.body.token});
     }
 };
@@ -40,6 +45,9 @@ exports.hasAuthValidToken = (req, res, next) => {
     if (Users.ValidateToken(req.body.token)) {
         return next();
     } else {
+        if (Users.ValidateToken(req.query.token)) {
+            return next();
+        }
         return res.status(400).send({error: 'Invalid API Token'});
     }
 };

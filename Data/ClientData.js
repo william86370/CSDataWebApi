@@ -141,7 +141,12 @@ exports.NewUser = (req, res) => {
 //This function updates the users profile
 exports.UpdateUserProfile = (req, res) => {
     //get the profile from the user API Key assuming the token key is valid
-    let profile = GetUserByToken(req.body.token).ProfileData;
+    let profile;
+    if ((req.query && req.query.token)) {
+        profile = GetUserByToken(req.query.token).ProfileData;
+    } else {
+        profile = GetUserByToken(req.body.token).ProfileData;
+    }
     //check values and update The user structure
     if (req.body.firstname) {
         profile.firstname = req.body.firstname;
@@ -171,7 +176,12 @@ exports.UpdateUserProfile = (req, res) => {
 
 exports.ViewUserProfile = (req, res) => {
     //get the profile from the user API Key assuming the token key is valid
-    let profile = GetUserByToken(req.body.token).ProfileData;
+    let profile;
+    if ((req.query && req.query.token)) {
+        profile = GetUserByToken(req.query.token).ProfileData;
+    } else {
+        profile = GetUserByToken(req.body.token).ProfileData;
+    }
 //return the object updated
     return res.status(200).send(profile);
 };
