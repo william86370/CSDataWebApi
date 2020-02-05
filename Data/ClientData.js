@@ -62,6 +62,19 @@ function GetUserByToken(USER_TOKEN) {
     }
     return {};
 }
+
+//This call will return the structure so we can parse the information inside
+exports.GetUserByToken = (USER_TOKEN) => {
+    for (let i = 0; i < AllData.length; i++) {
+        //loop until found
+        if (AllData[i].AccountData.oauth2.token === USER_TOKEN) {
+            //data match
+            return AllData[i];
+        }
+    }
+    return {};
+};
+
 //This call Will be used to validate the API token to allow the call to continue
 exports.ValidateToken = (ApiToken) => {
     for (let i = 0; i < AllData.length; i++) {

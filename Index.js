@@ -1,6 +1,7 @@
 const Auth = require('./Auth/AuthController.js');
 const Users = require('./Data/ClientData.js');
 const Middleware = require('./Auth/AuthMiddleware.js');
+const ApiHelper = require('ApiHelper.js');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -27,9 +28,15 @@ app.post('/api/v1/data/AccountData', [Middleware.hasAuthToken, Middleware.hasAut
 app.get('/api/v1/Auth/TestToken', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
     res.status(200).send({result: true, response: "Token Valid"});
 }]);
-
 //This function is for updating the users profile with an api key
 app.post('/api/v1/data/ProfileData', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.UpdateUserProfile]);
-
 //This function Will receive the call to check token and will return the users profile
 app.get('/api/v1/data/ProfileData', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewUserProfile]);
+
+//GET_Request For profile Data
+app.get('/api/v2/data/ProfileData', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewUserProfile]);
+
+///api/v2/data/Profile:ID GET=> returns Profile Structure POST=> Adds/modify profile structure
+
+///api/v2/data/Colleagues:ID GET=> Returns a list of Colleagues for that ID POST=> Adds new Colleague to User by Token
+
