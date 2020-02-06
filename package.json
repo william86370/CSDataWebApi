@@ -8,6 +8,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "body-parser": "latest"
+    "body-parser": "latest",
+    "cors": "^2.8.5"
   }
 }

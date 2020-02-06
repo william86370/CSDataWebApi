@@ -4,6 +4,7 @@ const Middleware = require('./Auth/AuthMiddleware.js');
 const ApiHelper = require('./ApiHelper.js');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
@@ -12,7 +13,7 @@ app.listen(port, () => {
     Users.ReadData();
 });
 app.use(bodyParser.json());
-
+app.use(cors());
 
 //User entered create new account
 app.post('/api/v1/Auth/CreateAccount', [Middleware.hasAuthValidFields, Users.NewUser]);
