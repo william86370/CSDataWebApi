@@ -39,7 +39,26 @@ exports.Login = (req, res) => {
         return res.status(200).send(UserProfile.oauth2);
     } else {
         //The user Entered the incorrect Password
-        return res.status(200).send({result:false,reason:"Incorrect Password Entered"});
+        return res.status(200).send({result: false, reason: "Incorrect Password Entered"});
+    }
+};
+exports.LoginV2 = (req, res) => {
+    //Get user Profile by email
+    let UserProfile = Users.GetAccountDataByUserName(req.body.email);
+    if (!UserProfile.password) {
+        return res.status(200).send({result: false, reason: "No Account Exists With That Email"});
+    }
+    let passwordFields = UserProfile.password.split('$');
+    let salt = passwordFields[0];
+    let hash = crypto.createHmac('sha512', salt).update(req.body.password).digest("base64");
+    if (hash === passwordFields[1]) {
+        //The user Has Passed Password Check
+        UserProfile.oauth2 = GenerateNewOath2Token(crypto.randomBytes(8).toString('base64'));
+        Users.SaveallData();
+        return res.status(200).send(UserProfile.oauth2);
+    } else {
+        //The user Entered the incorrect Password
+        return res.status(200).send({result: false, reason: "Incorrect Password Entered"});
     }
 };
 

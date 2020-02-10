@@ -2,7 +2,6 @@ const Users = require('../Data/ClientData.js');
 const bodyParser = require('body-parser');
 
 //This function Helps parse the data inside the Body for the username and password
-
 exports.hasAuthValidFields = (req, res, next) => {
     let errors = [];
 
@@ -17,6 +16,26 @@ exports.hasAuthValidFields = (req, res, next) => {
             errors.push('Missing username field');
         }
 
+        if (errors.length) {
+            return res.status(400).send({errors: errors.join(',')});
+        } else {
+            return next();
+        }
+    } else {
+        return res.status(400).send({errors: 'Missing a required field'});
+    }
+};
+//This function Helps parse the data inside the Body for the username and password
+exports.hasAuthV2ValidFields = (req, res, next) => {
+    let errors = [];
+
+    if (req.body) {
+        if (!req.body.email) {
+            errors.push('Missing email field');
+        }
+        if (!req.body.password) {
+            errors.push('Missing password field');
+        }
         if (errors.length) {
             return res.status(400).send({errors: errors.join(',')});
         } else {
@@ -52,3 +71,17 @@ exports.hasAuthValidToken = (req, res, next) => {
     }
 };
 
+exports.ParseValidFields = (req, res, next) => {
+
+    if (req.query.email) {
+        req.body.email = req.query.email;
+    }
+    if (req.query.password) {
+        req.body.password = req.query.password;
+    }
+    if (req.query.username) {
+        req.body.username = req.query.username;
+    }
+
+    return next();
+};

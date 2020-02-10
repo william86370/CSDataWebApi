@@ -34,10 +34,19 @@ app.post('/api/v1/data/ProfileData', [Middleware.hasAuthToken, Middleware.hasAut
 //This function Will receive the call to check token and will return the users profile
 app.get('/api/v1/data/ProfileData', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewUserProfile]);
 
-//GET_Request For profile Data
-app.get('/api/v2/data/ProfileData', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewUserProfile]);
-
 ///api/v2/data/Profile:ID GET=> returns Profile Structure POST=> Adds/modify profile structure
-
 ///api/v2/data/Colleagues:ID GET=> Returns a list of Colleagues for that ID POST=> Adds new Colleague to User by Token
 
+//Handle the request coming in and parse for get and POST add values to body and return account V2
+app.get('/api/v2/Auth/Login', [Middleware.ParseValidFields, Middleware.hasAuthV2ValidFields, Auth.LoginV2]);
+
+//Create new user account with Email as username and password
+app.get('/api/v2/Auth/CreateAccount', [Middleware.ParseValidFields, Middleware.hasAuthV2ValidFields, Users.NewUserV2]);
+
+//Test the token the user entered to see if it is valid
+app.get('/api/v2/Auth/TestToken', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
+    res.status(200).send({result: true, response: "Token Valid"});
+}]);
+
+//GET_Request For profile Data With Token
+app.get('/api/v2/data/ProfileData', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewUserProfile]);

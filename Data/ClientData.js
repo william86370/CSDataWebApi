@@ -129,11 +129,22 @@ function CheckUserExists(userName, email) {
     return false;
 }
 
+function CheckUserExistsV2(email) {
+    for (let i = 0; i < AllData.length; i++) {
+        //loop until found
+        if (AllData[i].AccountData.email === email) {
+            //data match
+            return true;
+        }
+    }
+    return false;
+}
+
 //For creating new user accounts
 exports.NewUser = (req, res) => {
     //run checks on user input
     if (CheckUserExists(req.body.username, req.body.email)) {
-        return res.status(404).send({result: false, data: 'The Username/Email Already Exists'});
+        return res.status(402).send({result: false, data: 'The Username/Email Already Exists'});
     }
     //Create the new user object
     AllData.push({
@@ -142,6 +153,25 @@ exports.NewUser = (req, res) => {
             username: req.body.username,
             password: Auth.HashPassword(req.body.password),
             email: req.body.email,
+            accounttype: "",
+            oauth2: {}
+        },
+        ProfileData: {}
+    });
+    SaveData();
+    return res.status(201).send({result: true, data: AllData[AllData.length - 1].AccountData})
+};
+exports.NewUserV2 = (req, res) => {
+    //run checks on user input
+    if (CheckUserExistsV2(req.body.email)) {
+        return res.status(402).send({result: false, data: 'The Email Already Exists'});
+    }
+    //Create the new user object
+    AllData.push({
+        uuid: Auth.GenerateNewUserID(),
+        AccountData: {
+            username: req.body.email,
+            password: Auth.HashPassword(req.body.password),
             accounttype: "",
             oauth2: {}
         },
