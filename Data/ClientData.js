@@ -51,6 +51,18 @@ exports.GetUserByID = (ID) => {
     }
     return {};
 };
+
+function GetUserByID(ID) {
+    for (let i = 0; i < AllData.length; i++) {
+        //loop until found
+        if (AllData[i].uuid === ID) {
+            //data match
+            return AllData[i];
+        }
+    }
+    return {};
+}
+
 //This call will return the structure so we can parse the information inside
 function GetUserByToken(USER_TOKEN) {
     for (let i = 0; i < AllData.length; i++) {
@@ -132,7 +144,7 @@ function CheckUserExists(userName, email) {
 function CheckUserExistsV2(email) {
     for (let i = 0; i < AllData.length; i++) {
         //loop until found
-        if (AllData[i].AccountData.email === email) {
+        if (AllData[i].AccountData.username === email) {
             //data match
             return true;
         }
@@ -178,7 +190,7 @@ exports.NewUserV2 = (req, res) => {
         ProfileData: {}
     });
     SaveData();
-    return res.status(201).send({result: true, data: AllData[AllData.length - 1].AccountData})
+    return res.status(201).send(AllData[AllData.length - 1].AccountData)
 };
 
 //This function updates the users profile
@@ -225,6 +237,13 @@ exports.ViewUserProfile = (req, res) => {
     } else {
         profile = GetUserByToken(req.body.token).ProfileData;
     }
+//return the object updated
+    return res.status(200).send(profile);
+};
+exports.ViewProfileV2 = (req, res) => {
+    //get the profile from the user API Key assuming the token key is valid
+    let profile;
+    profile = GetUserByID(req.params.ID);
 //return the object updated
     return res.status(200).send(profile);
 };

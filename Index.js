@@ -1,11 +1,15 @@
 const Auth = require('./Auth/AuthController.js');
 const Users = require('./Data/ClientData.js');
+const Students = require('./Data/StudentData.js');
 const Middleware = require('./Auth/AuthMiddleware.js');
 const ApiHelper = require('./ApiHelper.js');
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+const http = require('http');
+const https = require('https');
 const port = 3000;
 
 app.listen(port, () => {
@@ -47,6 +51,11 @@ app.get('/api/v2/Auth/CreateAccount', [Middleware.ParseValidFields, Middleware.h
 app.get('/api/v2/Auth/TestToken', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
     res.status(200).send({result: true, response: "Token Valid"});
 }]);
-
-//GET_Request For profile Data With Token
-app.get('/api/v2/data/ProfileData', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewUserProfile]);
+//TODO add profileGet Without ID For Owner
+///api/v2/data/Profile:ID GET=> returns Profile Structure POST=> Adds/modify profile structure
+app.get('/api/v2/data/Profile/:ID', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewProfileV2]);
+//Parse Valid Data Into Body => verify Token => Get data by UUID => Return ProfileData
+///api/v2/data/Profile:ID GET=> returns Profile Structure POST=> Adds/modify profile structure
+app.post('/api/v2/data/Profile/:ID', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, Students.IDCheck]);
+///api/v2/data/Colleagues:ID GET=> Returns a list of Colleagues for that ID POST=> Adds new Colleague to User by Token
+app.get('api/v2/data/Colleagues/:ID', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewUserProfile]);
