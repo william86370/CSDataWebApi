@@ -187,10 +187,10 @@ exports.NewUserV2 = (req, res) => {
             accounttype: "",
             oauth2: {}
         },
-        ProfileData: {}
+        ProfileData: {name:req.body.name}
     });
     SaveData();
-    return res.status(201).send(AllData[AllData.length - 1].AccountData)
+    return res.status(201).send(AllData[AllData.length - 1])
 };
 
 //This function updates the users profile
@@ -240,6 +240,36 @@ exports.ViewUserProfile = (req, res) => {
 //return the object updated
     return res.status(200).send(profile);
 };
+
+exports.ViewDegree = (req, res) => {
+    //get the profile from the user API Key assuming the token key is valid
+    let profile;
+    if ((req.query && req.query.token)) {
+        profile = GetUserByToken(req.query.token).ProfileData;
+    } else {
+        profile = GetUserByToken(req.body.token).ProfileData;
+    }
+    if(profile){//user has a valid Profile update and return the profile
+        profile.degree  = {};
+
+        if(req.query.schoolname){
+        profile.degree.schoolname = req.query.schoolname;
+        }
+        if(req.query.degreename){
+
+            profile.degree.degreename = req.query.degreename;
+        }
+        if(req.query.degreeyear){
+            profile.degree.degreeyear = req.query.degreeyear;
+        }
+        SaveData();
+        return res.status(200).send(profile.degree);
+    }else{
+        return res.status(404).send("No Profile Found");
+    }
+};
+
+
 exports.ViewProfileV2 = (req, res) => {
     //get the profile from the user API Key assuming the token key is valid
     let profile;

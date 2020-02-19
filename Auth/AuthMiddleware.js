@@ -30,6 +30,9 @@ exports.hasAuthV2ValidFields = (req, res, next) => {
     let errors = [];
 
     if (req.body) {
+        if (!req.body.name) {
+            req.body.name = "";
+        }
         if (!req.body.email) {
             errors.push('Missing email field');
         }
@@ -75,6 +78,9 @@ exports.ParseValidFields = (req, res, next) => {
 
     if (req.query.email) {
         req.body.email = req.query.email;
+    }
+    if (req.query.name) {
+        req.body.name = req.query.name;
     }
     if (req.query.password) {
         req.body.password = req.query.password;
