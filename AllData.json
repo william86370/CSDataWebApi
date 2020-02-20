@@ -1,1 +1,24 @@
-[{"uuid":"UcNAkVGz9Sio8H5s9AXlNw==","AccountData":{"username":"wawright@captechu.edu","password":"YWWyTrN/xkVcodbEK6KYVA==$lFQecDG/4df/uhXtyneFTBy2xZY7/qnYclg8HdRlTo5iG7BHV957cylgqoZTuklI+8FjcCTAoxG0SUhGCTRHJA==","accounttype":"","oauth2":{"token":"4yvWN6DgkKOz0621DhiTMTbC+x+RHcGRsdTZgEtKCp2lSoWQ8lWGbu0XTV7YEQXba4lf1N9ofxtat9b9h9e84Q==","salt":"YvAaIqi7oqPospMh6fDOgg==","secret":"QGsJvbWqfFC7Q7Kx64U7Xw==","udid":"Twg6FILpHBE="}},"ProfileData":{"name":"william","degree":{"schoolname":"Capitol Tech","degreename":"Computer Science","degreeyear":"2021"}}}]
+[
+  {
+    "uuid": "UcNAkVGz9Sio8H5s9AXlNw==",
+    "AccountData": {
+      "username": "wawright@captechu.edu",
+      "password": "YWWyTrN/xkVcodbEK6KYVA==$lFQecDG/4df/uhXtyneFTBy2xZY7/qnYclg8HdRlTo5iG7BHV957cylgqoZTuklI+8FjcCTAoxG0SUhGCTRHJA==",
+      "accounttype": "",
+      "oauth2": {
+        "token": "R8CQ0tWvlBXKvg+Dk0E1Oa3I6ME5ze7GKmS2ibEzLpr54ATodUQxACxKPhUY/ZNUXh72AJ+TlUGv1CoImBDAbw==",
+        "salt": "L5TF47Tf5yoHNQ9CnY8N0Q==",
+        "secret": "+sHbV3MJmmvPLzeepQH5Qg==",
+        "udid": "ul1DiLO1Kis="
+      }
+    },
+    "ProfileData": {
+      "name": "william",
+      "degree": {
+        "schoolname": "Capitol Tech",
+        "degreename": "Computer Science",
+        "degreeyear": "2021"
+      }
+    }
+  }
+]

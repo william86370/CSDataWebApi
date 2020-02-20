@@ -277,3 +277,121 @@ exports.ViewProfileV2 = (req, res) => {
 //return the object updated
     return res.status(200).send(profile);
 };
+
+
+//Will parse the incoming call for valid fields and update the user who called returning the complete structure
+exports.POST_Profile = (req, res) => {
+    //get the profile from the user API Key assuming the token key is valid
+    let profile;
+    if ((req.query && req.query.token)) {
+        profile = GetUserByToken(req.query.token).ProfileData;
+    } else {
+        profile = GetUserByToken(req.body.token).ProfileData;
+    }
+    //Now that we have a valid profile Lets check what information the user wishes to update
+
+    if (req.body.info) {
+        //user has included about the profile of the user
+        if (!profile.info) {
+            profile.info = {};
+        }
+        POST_Profile_Info(req.body.info, profile.info);
+    }
+    if (req.body.education) {
+        //user has included about the education of the user
+        if (!profile.education) {
+            profile.education = {};
+        }
+        POST_Profile_education(req.body.education, profile.education);
+    }
+    if (req.body.work) {
+        //user has included about the work of the user
+        if (!profile.work) {
+            profile.work = {};
+        }
+        POST_Profile_Work(req.body.work, profile.work);
+    }
+    if (req.body.personal) {
+        //user has included about the personal of the user
+        if (!profile.personal) {
+            profile.personal = {};
+        }
+        POST_Profile_Personal(req.body.personal, profile.personal);
+    }
+    SaveData();
+    return res.status(200).send(profile);
+};
+
+//This function will parse the body for information about the information of a user and update that information
+function POST_Profile_Info(bodyinfo, profileinfo) {
+    //limit the scope of the call to the users info
+    if (bodyinfo.firstname) {
+        profileinfo.firstname = bodyinfo.firstname;
+    }
+    if (bodyinfo.lastname) {
+        profileinfo.lastname = bodyinfo.lastname;
+    }
+    if (bodyinfo.phonenumber) {
+        profileinfo.phonenumber = bodyinfo.phonenumber;
+    }
+    if (bodyinfo.email) {
+        profileinfo.email = bodyinfo.email;
+    }
+}
+
+//This function will parse the body for information about the information of a user and update that information
+function POST_Profile_education(bodyeducation, profileeducation) {
+    //limit the scope of the call to the users info
+    if (bodyeducation.schoolname) {
+        profileeducation.schoolname = bodyeducation.schoolname;
+    }
+    if (bodyeducation.degreename) {
+        profileeducation.degreename = bodyeducation.degreename;
+    }
+    if (bodyeducation.degreeyear) {
+        profileeducation.degreeyear = bodyeducation.degreeyear;
+    }
+}
+
+//This function will parse the body for information about the information of a user and update that information
+function POST_Profile_Work(bodyWork, profileWork) {
+    //limit the scope of the call to the users info
+    if (bodyWork.employername) {
+        profileWork.employername = bodyWork.employername;
+    }
+    if (bodyWork.jobtitle) {
+        profileWork.jobtitle = bodyWork.jobtitle;
+    }
+    if (bodyWork.timeworked) {
+        profileWork.timeworked = bodyWork.timeworked;
+    }
+}
+
+//This function will parse the body for information about the information of a user and update that information
+function POST_Profile_Personal(bodyPersonal, profilePersonal) {
+    //limit the scope of the call to the users info
+    if (bodyPersonal.resame) {
+        profilePersonal.resame = bodyPersonal.resame;
+    }
+    if (bodyPersonal.bio) {
+        profilePersonal.bio = bodyPersonal.bio;
+    }
+    if (bodyPersonal.pfp) {
+        profilePersonal.pfp = bodyPersonal.pfp;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

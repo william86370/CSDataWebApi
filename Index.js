@@ -51,15 +51,21 @@ app.get('/api/v2/Auth/CreateAccount', [Middleware.ParseValidFields, Middleware.h
 app.get('/api/v2/Auth/TestToken', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
     res.status(200).send({result: true, response: "Token Valid"});
 }]);
+
+//Api/V2/Data Path Redirect
+///api/v2/data/Profile:ID GET=> returns Profile Structure POST=> Parse the fields for information and parse into correct fields for adding to profile
+app.post('/api/v2/data/Profile', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.POST_Profile]);
+
+
 //TODO add profileGet Without ID For Owner
 ///api/v2/data/Profile:ID GET=> returns Profile Structure POST=> Adds/modify profile structure
 app.get('/api/v2/data/Profile/:ID', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewProfileV2]);
 //Parse Valid Data Into Body => verify Token => Get data by UUID => Return ProfileData
-///api/v2/data/Profile:ID GET=> returns Profile Structure POST=> Adds/modify profile structure
-app.post('/api/v2/data/Profile/:ID', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, Students.IDCheck]);
 ///api/v2/data/Colleagues:ID GET=> Returns a list of Colleagues for that ID POST=> Adds new Colleague to User by Token
 app.get('/api/v2/data/Colleagues/:ID', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewUserProfile]);
 //TODO Add api call for adding thw school and degree to thew users profile
 ///api/v2/data/Degree GET's/Sets the Degree of user => Validate Token => Parse valid fields => Add To Profile
 app.get('/api/v2/data/Degree', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewDegree]);
 //todo motify api call to add name into create account
+
+
