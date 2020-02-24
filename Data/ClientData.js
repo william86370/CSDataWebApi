@@ -181,10 +181,11 @@ exports.NewUserV2 = (req, res) => {
     //Create the new user object
     AllData.push({
         uuid: Auth.GenerateNewUserID(),
+        accounttype: req.body.accounttype,
         AccountData: {
             username: req.body.email,
             password: Auth.HashPassword(req.body.password),
-            accounttype: "",
+            accounttype: req.body.accounttype,
             oauth2: {}
         },
         ProfileData: {name:req.body.name}

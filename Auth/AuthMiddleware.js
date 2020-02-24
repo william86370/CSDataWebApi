@@ -36,6 +36,9 @@ exports.hasAuthV2ValidFields = (req, res, next) => {
         if (!req.body.email) {
             errors.push('Missing email field');
         }
+        //if (!req.body.accounttype) {
+          //  errors.push('Missing Accounttype field');
+       // }
         if (!req.body.password) {
             errors.push('Missing password field');
         }
@@ -78,6 +81,9 @@ exports.ParseValidFields = (req, res, next) => {
 
     if (req.query.email) {
         req.body.email = req.query.email;
+    }
+    if (req.query.accounttype) {
+        req.body.accounttype = req.query.accounttype;
     }
     if (req.query.name) {
         req.body.name = req.query.name;
