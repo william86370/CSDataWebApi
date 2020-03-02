@@ -188,7 +188,7 @@ exports.NewUserV2 = (req, res) => {
             accounttype: req.body.accounttype,
             oauth2: {}
         },
-        ProfileData: {name:req.body.name}
+        ProfileData: {info:{firstname:req.body.firstname,lastname:req.body.lastname}}
     });
     SaveData();
     return res.status(201).send(AllData[AllData.length - 1])

@@ -69,3 +69,4 @@ app.get('/api/v2/data/Degree', [Middleware.hasAuthToken, Middleware.hasAuthValid
 //todo motify api call to add name into create account
 
 
+//todo ALl data becomes lowercase
