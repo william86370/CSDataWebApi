@@ -382,6 +382,65 @@ function POST_Profile_Personal(bodyPersonal, profilePersonal) {
     }
 }
 
+//This function will parse the body for information about the information of a user and update that information
+exports.POST_Profile_Info = (bodyinfo, profileinfo) => {
+    //limit the scope of the call to the users info
+    if (bodyinfo.firstname) {
+        profileinfo.firstname = bodyinfo.firstname;
+    }
+    if (bodyinfo.lastname) {
+        profileinfo.lastname = bodyinfo.lastname;
+    }
+    if (bodyinfo.phonenumber) {
+        profileinfo.phonenumber = bodyinfo.phonenumber;
+    }
+    if (bodyinfo.email) {
+        profileinfo.email = bodyinfo.email;
+    }
+};
+
+//This function will parse the body for information about the information of a user and update that information
+exports.POST_Profile_education = (bodyeducation, profileeducation) => {
+    //limit the scope of the call to the users info
+    if (bodyeducation.schoolname) {
+        profileeducation.schoolname = bodyeducation.schoolname;
+    }
+    if (bodyeducation.degreename) {
+        profileeducation.degreename = bodyeducation.degreename;
+    }
+    if (bodyeducation.degreeyear) {
+        profileeducation.degreeyear = bodyeducation.degreeyear;
+    }
+};
+
+//This function will parse the body for information about the information of a user and update that information
+exports.POST_Profile_Work = (bodyWork, profileWork) => {
+    //limit the scope of the call to the users info
+    if (bodyWork.employername) {
+        profileWork.employername = bodyWork.employername;
+    }
+    if (bodyWork.jobtitle) {
+        profileWork.jobtitle = bodyWork.jobtitle;
+    }
+    if (bodyWork.timeworked) {
+        profileWork.timeworked = bodyWork.timeworked;
+    }
+};
+
+//This function will parse the body for information about the information of a user and update that information
+exports.POST_Profile_Personal = (bodyPersonal, profilePersonal) => {
+    //limit the scope of the call to the users info
+    if (bodyPersonal.resame) {
+        profilePersonal.resame = bodyPersonal.resame;
+    }
+    if (bodyPersonal.bio) {
+        profilePersonal.bio = bodyPersonal.bio;
+    }
+    if (bodyPersonal.pfp) {
+        profilePersonal.pfp = bodyPersonal.pfp;
+    }
+};
+
 
 
 

@@ -55,7 +55,7 @@ exports.LoginV2 = (req, res) => {
         //The user Has Passed Password Check
         UserProfile.oauth2 = GenerateNewOath2Token(crypto.randomBytes(8).toString('base64'));
         Users.SaveallData();
-        return res.status(200).send(UserProfile.oauth2);
+        return res.status(200).send(UserProfile);
     } else {
         //The user Entered the incorrect Password
         return res.status(200).send({result: false, reason: "Incorrect Password Entered"});

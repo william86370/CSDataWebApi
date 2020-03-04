@@ -43,10 +43,11 @@ app.get('/api/v1/data/ProfileData', [Middleware.hasAuthToken, Middleware.hasAuth
 
 //Handle the request coming in and parse for get and POST add values to body and return account V2
 app.get('/api/v2/Auth/Login', [Middleware.ParseValidFields, Middleware.hasAuthV2ValidFields, Auth.LoginV2]);
-
+app.post('/api/v2/Auth/Login', [Middleware.ParseValidFields, Middleware.hasAuthV2ValidFields, Auth.LoginV2]);
 //Create new user account with Email as username and password
 app.get('/api/v2/Auth/CreateAccount', [Middleware.ParseValidFields, Middleware.hasAuthV2ValidFields, Users.NewUserV2]);
-
+//Create new user account with Email as username and password
+app.post('/api/v2/Auth/CreateAccount', [Middleware.ParseValidFields, Middleware.hasAuthV2ValidFields, Users.NewUserV2]);
 //Test the token the user entered to see if it is valid
 app.get('/api/v2/Auth/TestToken', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
     res.status(200).send({result: true, response: "Token Valid"});
@@ -56,7 +57,9 @@ app.get('/api/v2/Auth/TestToken', [Middleware.hasAuthToken, Middleware.hasAuthVa
 ///api/v2/data/Profile:ID GET=> returns Profile Structure POST=> Parse the fields for information and parse into correct fields for adding to profile
 app.post('/api/v2/data/Profile', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.POST_Profile]);
 
-
+app.get('/api/v2/data/Profile', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
+    return res.status(200).send(Users.GetUserByToken(req.query.token).ProfileData);
+}]);
 //TODO add profileGet Without ID For Owner
 ///api/v2/data/Profile:ID GET=> returns Profile Structure POST=> Adds/modify profile structure
 app.get('/api/v2/data/Profile/:ID', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewProfileV2]);
@@ -67,6 +70,15 @@ app.get('/api/v2/data/Colleagues/:ID', [Middleware.hasAuthToken, Middleware.hasA
 ///api/v2/data/Degree GET's/Sets the Degree of user => Validate Token => Parse valid fields => Add To Profile
 app.get('/api/v2/data/Degree', [Middleware.hasAuthToken, Middleware.hasAuthValidToken, Users.ViewDegree]);
 //todo motify api call to add name into create account
-
-
-//todo ALl data becomes lowercase
+app.get('/api/v2/data/Profile/Education', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
+    return res.status(200).send(Users.GetUserByToken(req.query.token).ProfileData.education);
+}]);
+app.get('/api/v2/data/Profile/Work', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
+    return res.status(200).send(Users.GetUserByToken(req.query.token).ProfileData.work);
+}]);
+app.get('/api/v2/data/Profile/info', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
+    return res.status(200).send(Users.GetUserByToken(req.query.token).ProfileData.info);
+}]);
+app.get('/api/v2/data/Profile/personal', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
+    return res.status(200).send(Users.GetUserByToken(req.query.token).ProfileData.personal);
+}]);

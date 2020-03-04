@@ -1,1 +1,60 @@
-[{"uuid":"UcNAkVGz9Sio8H5s9AXlNw==","AccountData":{"username":"wawright@captechu.edu","password":"YWWyTrN/xkVcodbEK6KYVA==$lFQecDG/4df/uhXtyneFTBy2xZY7/qnYclg8HdRlTo5iG7BHV957cylgqoZTuklI+8FjcCTAoxG0SUhGCTRHJA==","accounttype":"","oauth2":{"token":"LUykOXJgrsjQcR4Pt791F/DluV5FBjYLJuEO4nbSxoq7vKdHYC7d/C6pta3X/jCsyrr2DBZ5jN3qcOq0OoWJkw==","salt":"0dxlacCriy3yrDjWyOjXqA==","secret":"bw6Fu4M4yEdNUCO8xCvJ6g==","udid":"ElE/5Zyjkqk="}},"ProfileData":{"name":"william","degree":{"schoolname":"Capitol Tech","degreename":"Computer Science","degreeyear":"2021"}}},{"uuid":"qEoZU7CLkXSf08Kfa2iAtg==","accounttype":"0","AccountData":{"username":"test2","password":"eg+7NAKQSPNpnNTEPHVdug==$rO8VZjiaUy1bwKR8+2WNenA3e02lsAI77a9iXvZ24LOPE12yG79f03RawtxawkmXlyIoqzSUBcoZFNw5g5kfyg==","accounttype":"0","oauth2":{"token":"NRADzKU2d/jjitM06vJS8DU974bGf2Fo+Zx1lXhagvdhlyJU6prBaYWBfSZMQt/hzZlRmWkn90y0+LbYCHcx9A==","salt":"PKElhppZwK0zWLLZfCfSSg==","secret":"2pXAKLxXKJa1WPBaIulbgA==","udid":"S0rGf8/JlhA="}},"ProfileData":{"name":"","education":{"schoolname":"Trstschool","degreename":"Fake Degree","degreeyear":"dtcfvygbuhnijmoklp;"}}}]
+[
+  {
+    "uuid": "yuFErwXghOW+AUhiXQG1aw==",
+    "accounttype": "Student",
+    "AccountData": {
+      "username": "Test@test.com",
+      "password": "Iw+ATLx7nmpwkTdkBC4RcQ==$Enq3zXYDbQ0UuOEL0EEzfKjMsohBnuTkhY02lH23obOkF/J16nyO4jWuv0PklG5KOCOBAkxEIqS08eK9FU8MCQ==",
+      "accounttype": "Student",
+      "oauth2": {
+        "token": "fK9fXX3LHDf0AfGHD8zthb9TbZlPs4eoICa1M4HHf6i6RlpOvoFWyiDiN2GVKRewhBn6X3yFU9jFmjsULQhIiA==",
+        "salt": "uXkWjfn0PtPQI71gym2tSA==",
+        "secret": "vbd6TySD33XNsNJBaThOlg==",
+        "udid": "xD85IuWr84E="
+      }
+    },
+    "ProfileData": {
+      "info": {
+        "firstname": "William",
+        "lastname": "wri"
+      }
+    }
+  },
+  {
+    "uuid": "zg1Z2FeBhqpTjgIw/m08zQ==",
+    "accounttype": "accounttypein",
+    "AccountData": {
+      "username": "emailin",
+      "password": "bPD5hPIJ6dilia95pzRWKw==$jM8jyvuiZ780N00vB2VuOBXzSB6/+8rLpO679rKe5zqUO0cX2xXk4UuPmxUlTyWlV3BugvN6HZjJYCH+faeNyg==",
+      "accounttype": "accounttypein",
+      "oauth2": {
+        "token": "BqjDj+NiWMQld2oKtIu+HE0+a5cPSJDOD/IDPYX7JkrqQ7/GZGRLLiReLUp/xASFC+52A+yQ5DAOtGVHT2BcTA==",
+        "salt": "rmGEw37x2NTMWdDgaxxG6w==",
+        "secret": "DQyDMUJKAXCQgxW6vwo2Mg==",
+        "udid": "11LIj/onfYE="
+      }
+    },
+    "ProfileData": {
+      "info": {
+        "firstname": "TestFirst",
+        "lastname": "TestLast",
+        "phonenumber": "7035555555",
+        "email": "Test@test.com"
+      },
+      "education": {
+        "schoolname": "CapitolTech",
+        "degreename": "Testname",
+        "degreeyear": "2021"
+      },
+      "work": {
+        "employername": "BigLootCo",
+        "jobtitle": "Loot Finder",
+        "timeworked": "2Y"
+      },
+      "personal": {
+        "bio": "This is the bio section where the bio is",
+        "pfp": "www.google.com/loot.jpg"
+      }
+    }
+  }
+]

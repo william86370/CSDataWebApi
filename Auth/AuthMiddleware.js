@@ -30,15 +30,15 @@ exports.hasAuthV2ValidFields = (req, res, next) => {
     let errors = [];
 
     if (req.body) {
-        if (!req.body.name) {
+        if (!req.body.firstname) {
             req.body.name = "";
+        }
+        if (!req.body.lastname) {
+            req.body.lastname = "";
         }
         if (!req.body.email) {
             errors.push('Missing email field');
         }
-        //if (!req.body.accounttype) {
-          //  errors.push('Missing Accounttype field');
-       // }
         if (!req.body.password) {
             errors.push('Missing password field');
         }
@@ -85,8 +85,11 @@ exports.ParseValidFields = (req, res, next) => {
     if (req.query.accounttype) {
         req.body.accounttype = req.query.accounttype;
     }
-    if (req.query.name) {
-        req.body.name = req.query.name;
+    if (req.query.firstname) {
+        req.body.firstname = req.query.firstname;
+    }
+    if (req.query.lastname) {
+        req.body.lastname = req.query.lastname;
     }
     if (req.query.password) {
         req.body.password = req.query.password;
