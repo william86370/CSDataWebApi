@@ -73,6 +73,28 @@ app.get('/api/v2/data/Degree', [Middleware.hasAuthToken, Middleware.hasAuthValid
 app.get('/api/v2/data/Profile/Education', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
     return res.status(200).send(Users.GetUserByToken(req.query.token).ProfileData.education);
 }]);
+
+function MatchCode(codetomatch) {
+    let returndata = {
+        classname: "Agile Methods for Software Eng",
+        code: "CS-452",
+        term: "D01_2020_30"
+    };
+    if (codetomatch != "CS452") {
+        return {
+            classname: "", code: "", term: ""
+        };
+    }
+    return returndata;
+}
+
+app.post('/api/v2/data/Profile/Education/class', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
+    let CCode = req.query.ccode;
+    let courses = Users.GetUserByToken(req.query.token).ProfileData.education;
+    courses = {course: {}};
+    courses.course = MatchCode(CCode);
+    return res.status(200).send(MatchCode(CCode));
+}]);
 app.get('/api/v2/data/Profile/Work', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
     return res.status(200).send(Users.GetUserByToken(req.query.token).ProfileData.work);
 }]);
