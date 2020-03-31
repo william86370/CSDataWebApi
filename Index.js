@@ -2,6 +2,7 @@ const Auth = require('./Auth/AuthController.js');
 const Users = require('./Data/ClientData.js');
 const Students = require('./Data/StudentData.js');
 const Middleware = require('./Auth/AuthMiddleware.js');
+const Schools = require('./Data/SchoolData.js');
 const ApiHelper = require('./ApiHelper.js');
 const fs = require('fs');
 const express = require('express');
@@ -15,6 +16,7 @@ const port = 3000;
 app.listen(port, () => {
     console.log(`WebAPI app listening on port ${port}!`);
     Users.ReadData();
+    Schools.ReadData();
 });
 app.use(bodyParser.json());
 app.use(cors());
@@ -80,10 +82,11 @@ function MatchCode(codetomatch) {
         code: "CS-452",
         term: "D01_2020_30"
     };
-    if (codetomatch != "CS452") {
+    if (codetomatch !== "CS452") {
         return {
             classname: "", code: "", term: ""
         };
+        return carray.codetomatch
     }
     return returndata;
 }
@@ -104,3 +107,18 @@ app.get('/api/v2/data/Profile/info', [Middleware.ParseValidFields, Middleware.ha
 app.get('/api/v2/data/Profile/personal', [Middleware.ParseValidFields, Middleware.hasAuthToken, Middleware.hasAuthValidToken, function (req, res) {
     return res.status(200).send(Users.GetUserByToken(req.query.token).ProfileData.personal);
 }]);
+
+
+//Add all school hardcoded Data
+
+//This function will create a new School object Requires School name and returns the Object Structure
+app.post('/api/v2/data/schools', [Schools.AddNewSchool]);
+//This function will create a new Course  Requires School UUID CourseName and CourseCode, returns the Object Structure
+app.post('/api/v2/data/schools/course', [Schools.AddCourseToSchool]);
+app.post('/api/v2/data/schools/course/tag', [Schools.AddTagsToCourse]);
+app.post('/api/v2/data/schools/degree', [Schools.AddDegreeToSchool]);
+app.post('/api/v2/data/schools/degree/course', [Schools.AddCourseToDegree]);
+app.post('/api/v2/data/schools/student', [Schools.AddStudentToSchool]);
+app.post('/api/v2/data/masteroveride/schools', [Schools.MasterOverrideAddSchool]);
+app.get('/api/v2/data/schools', [Schools.GetSchoolInfo]);
+//TODO check for existing

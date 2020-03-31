@@ -56,5 +56,19 @@
         "pfp": "www.google.com/loot.jpg"
       }
     }
+  },
+  {
+    "uuid": "2VHgwxKvrBlr8FlSGsSK8g==",
+    "AccountData": {
+      "username": "wawright@captechu.edu",
+      "password": "f0DLUcxL7q3MkIqn16z3bg==$FgB/x0eOQWhvlUxHfdZ6mIq8F926/usa/hkTb6bvMv+RKA3skNsxn7CeW0EDO7pD5uyBjBL63nAZsLCktACJYQ==",
+      "oauth2": {}
+    },
+    "ProfileData": {
+      "info": {
+        "firstname": "William",
+        "lastname": "wr"
+      }
+    }
   }
 ]
